@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>window.name实现跨域</title>
+</head>
+<body>
+  <h1>这是a页面</h1>
+  <ul>
+    <li>a页面来自：http://localhost:3000/a.html</li>
+    <li>b页面来自：http://localhost:3000/b.html</li>
+    <li>c页面来自：http://localhost:4000/c.html</li>
+    <li>a页面引入c页面，页面加载完成后，触发iframe的load事件，此时再c页面给window.name赋值</li>
+    <li>此时改变ifrme的src引用地址，指向b页面，因为a和b不存在跨域，这个时候就可以拿到window.name的值了</li>
+  </ul>
+  <iframe src="http://localhost:4000/c.html" frameborder="0" id="iframe" onload="load()"></iframe>
+  <script>
+    let first = true
+    function load() {
+      if (first) { // 避免死循环
+        let iframe = document.getElementById('iframe')
+        iframe.src = 'http://localhost:3000/b.html'
+        first = false
+      } else {
+        console.log('data',iframe.contentWindow.name)
+      }
+    }
+  </script>
+</body>
+</html>

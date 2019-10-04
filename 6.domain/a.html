@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>window.domain</title>
+</head>
+<body>
+  <h1>这是a页面</h1>
+  <!-- 域名 一级域名 二级域名 -->
+  <!-- www.baidu.com -->
+  <!-- hello.baidu.com -->
+  <!-- a通过http://a.test.cn:3000/a.html -->
+  <iframe src="http://b.test.cn:4000/b.html" frameborder="0" onload="load()" id="frame"></iframe>
+  <script>
+    // 告诉浏览器a页面和b页面是一家的
+    document.domain = 'test.cn'
+    function load() {
+      console.log(frame.contentWindow.a)
+    }
+  </script>
+</body>
+</html>

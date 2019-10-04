@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jsonp实现跨域</title>
+</head>
+<body>
+  <script>
+    function jsonp({url, params, cb = 'jsonp'}) {
+      return new Promise((resolve, reject) => {
+        // 创建一个script标签
+        let script = document.createElement('script')
+        window[cb] = function(data) {
+          resolve(data)
+          document.body.removeChild(script)
+        }
+        // 标签添加src属性
+        let arr = []
+        params = {...params, cb}
+        for(let key in params) {
+          arr.push(`${key}=${params[key]}`)
+        }
+        script.src = `${url}&${arr.join('&')}`
+        document.body.appendChild(script)
+      })
+    }
+    // https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1439,21085,29523,29720,29568,29221&wd=%E4%BD%A0%E5%A5%BD&cb=show
+
+    jsonp({
+      url: 'https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1439,21085,29523,29720,29568,29221',
+      params: {
+        wd: '雷仔'
+      }
+    }).then(res => {
+      console.log(res)
+    })
+  </script>
+</body>
+</html>

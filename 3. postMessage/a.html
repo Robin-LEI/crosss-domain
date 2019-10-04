@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>postMessage</title>
+</head>
+<body>
+  <h1>这是a页面</h1>
+  <iframe src="http://localhost:4000/b.html" frameborder="0" id="framea" onload="load()"></iframe>
+  <script>
+    // a页面，如果想和b页面通信
+    function load() {
+      console.log('b页面加载完成')
+      let iframe = document.getElementById('framea')
+      iframe.contentWindow.postMessage('这是来自a', 'http://localhost:4000')
+
+      window.onmessage = function(e) {
+        console.log('这是a页面，接受来自b页面的数据' , e.data)
+      }
+    }
+  </script>
+</body>
+</html>

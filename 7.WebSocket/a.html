@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>websocket</title>
+</head>
+<body>
+  <script>
+    let ws = new WebSocket('ws://localhost:3000')
+    ws.onopen = function() {
+      ws.send('来自a的消息')
+    }
+    ws.onmessage = function(e) {
+      console.log('b', e.data)
+    }
+  </script>
+</body>
+</html>

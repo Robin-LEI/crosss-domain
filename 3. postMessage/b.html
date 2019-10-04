@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>postMessage</title>
+</head>
+<body>
+  <h4>这是b页面</h4>
+
+  <script>
+    window.onmessage = function(e) {
+      console.log('这是b页面， 我已经收到了a页面的消息', e.data)
+      // 我这边发一个消息给a页面
+      e.source.postMessage('这是b页面的数据', 'http://localhost:3000')
+    }
+
+  </script>
+</body>
+</html>
